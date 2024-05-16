@@ -1,0 +1,193 @@
+@use 'sass:color';
+@use 'sass:math';
+
+// particle keyframes
+@keyframes earthParticle {
+  100% {
+    top: 130%;
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+// fragment keyframes
+@keyframes earthFragmentBefore {
+  100% {
+    top: 120%;
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+@keyframes earthFragmentAfter {
+  100% {
+    bottom: 120%;
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+// core keyframes
+@keyframes earthCore {
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(1.6);
+  }
+}
+
+.earth {
+  background: linear-gradient(oklab(0.3 -0.05 0.1), oklab(0.4 -0.05 0.1));
+  // particle
+  .particle-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .particle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0.375rem;
+    height: 100%;
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      display: block;
+      width: 0;
+      height: 0;
+      border-top: 0.3125rem solid #a83;
+      border-right: 0.1875rem solid transparent;
+      border-left: 0.1875rem solid transparent;
+      transform: scale(0);
+      will-change: top, opacity, transform;
+      animation: 2s ease-out 0s infinite earthParticle;
+    }
+  }
+  // fragment
+  .fragment-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  .fragment {
+    position: absolute;
+    top: 0;
+    left: calc(50% - 0.625rem);
+    width: 1.25rem;
+    height: 100%;
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      display: block;
+      border-radius: 50%;
+      width: 1.25rem;
+      height: 1.25rem;
+      background: #682;
+      transform: scale(0);
+      animation: 4s ease-out 0s infinite earthFragmentBefore;
+    }
+    &:before {
+      top: 50%;
+      will-change: top, opacity, transform;
+    }
+    &:after {
+      bottom: 50%;
+      will-change: bottom, opacity, transform;
+      animation-name: earthFragmentAfter;
+    }
+  }
+  // core
+  .core-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: plus-lighter;
+    &:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(
+        closest-side,
+        #fff,
+        hsla(130, 60%, 82%, .7),
+        hsla(116, 50%, 64%, .4),
+        hsla(102, 40%, 46%, .2),
+        hsla(88, 30%, 28%, .1),
+        hsla(74, 20%, 10%, 0),
+      );
+      transform: scale(2);
+    }
+  }
+  .core {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    &:before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cpath fill='%239c3' d='M.5 0 .02 .35 .21 .9 .79 .9 .98 .35 .5 0z'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      transform: translate3d(0, 0, 0) scale(0);
+      backface-visibility: hidden;
+      will-change: transform;
+      animation: 2s ease-out 0s infinite earthCore;
+    }
+  }
+  .button {
+    background: oklab(0.5 -0.05 0.1);
+    &:hover {
+      background: oklab(0.55 -0.05 0.1);
+    }
+    &:active {
+      background: oklab(0.45 -0.05 0.1);
+    }
+  }
+}
+
+// particle animation
+@for $i from 1 through 64 {
+  $rotation: math.div(360deg, 64) * ($i - 1);
+
+  .earth .particle:nth-child(#{$i}) {
+    transform: rotate($rotation);
+    &:before, &:after {
+      animation-duration: 2s * math.random() + 1;
+      animation-delay: 1s * math.random();
+    }
+  }
+}
+
+// fragment animation
+@for $i from 1 through 16 {
+  $rotation: math.div(-360deg, 16) * ($i - 1);
+  $delay: math.div(4s, 16) * ($i - 1);
+
+  .earth .fragment:nth-child(#{$i}) {
+    transform: rotate($rotation);
+    &:before, &:after {
+      animation-delay: $delay;
+    }
+  }
+}
+
+// core animation
+@for $i from 1 through 4 {
+  $rotation: math.div(72deg, 4) * ($i - 1);
+  $delay: math.div(2s, 4) * ($i - 1);
+
+  .earth .core:nth-child(#{$i}) {
+    transform: rotate($rotation);
+    &:before {
+      animation-delay: $delay;
+    }
+  }
+}

@@ -1,0 +1,194 @@
+@use 'sass:color';
+@use 'sass:math';
+
+// particle keyframes
+@keyframes waterParticle {
+  100% {
+    top: 50%;
+    opacity: 1;
+    transform: scale(0);
+  }
+}
+
+// fragment keyframes
+@keyframes waterFragment {
+  100% {
+    transform: rotate(45deg);
+  }
+}
+
+// core keyframes
+@keyframes waterCore {
+  100% {
+    opacity: 1;
+    transform: scale(0);
+  }
+}
+
+.water {
+  background: linear-gradient(oklab(0.3 0 -0.1), oklab(0.4 0 -0.1));
+  // particle
+  .particle-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    &:after {
+      content: '';
+      position: absolute;
+      display: block;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: radial-gradient(
+        closest-side,
+        #fff,
+        hsla(190, 100%, 86%, .8),
+        hsla(200, 90%, 72%, .6),
+        hsla(210, 70%, 58%, .4),
+        hsla(220, 60%, 44%, .2),
+        hsla(230, 50%, 30%, 0),
+      );
+      transform: scale(2);
+    }
+  }
+  .particle {
+    position: absolute;
+    top: 0;
+    left: 2.75rem;
+    width: 0.5rem;
+    height: 100%;
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      top: 130%;
+      left: 0;
+      display: block;
+      border-radius: 50%;
+      width: 0.5rem;
+      height: 0.5rem;
+      background: #4af;
+      opacity: 0;
+      will-change: top, opacity, transform;
+      animation: 1s ease-in 0s infinite waterParticle;
+    }
+  }
+  // fragment
+  .fragment-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    mix-blend-mode: plus-lighter;
+    filter: blur(4px);
+    will-change: transform;
+    animation: 1s linear 0s infinite waterFragment;
+  }
+  .fragment {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    &:before {
+      content: '';
+      position: absolute;
+      top: -0.75rem;
+      right: 0;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 100% 0 0 0;
+      border-top: 1.5rem solid #4af;
+    }
+  }
+  // core
+  .core-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    filter: blur(2px);
+  }
+  .core {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-radius: 50%;
+      opacity: 0;
+      will-change: opacity, transform;
+      animation: 2s ease-in 0s infinite waterCore;
+    }
+    &:before {
+      border-top: 0.125rem solid #6cf;
+      border-right: 0.125rem solid #6cf;
+    }
+    &:after {
+      border-bottom: 0.125rem solid #6cf;
+      border-left: 0.125rem solid #6cf;
+    }
+  }
+  .button {
+    background: oklab(0.5 0 -0.1);
+    &:hover {
+      background: oklab(0.55 0 -0.1);
+    }
+    &:active {
+      background: oklab(0.45 0 -0.1);
+    }
+  }
+}
+
+// particle animation
+@for $i from 1 through 64 {
+  $rotation: math.div(360deg, 64) * ($i - 1);
+
+  .water .particle:nth-child(#{$i}) {
+    transform: rotate($rotation);
+    &:before {
+      transform: scale(0.5 * math.random() + 0.5);
+      animation-duration: 2s * math.random() + 1s;
+      animation-delay: 3s * math.random();
+    }
+    &:after {
+      transform: scale(0.5 * math.random() + 0.5);
+      animation-duration: 2s * math.random() + 1s;
+      animation-delay: 3s * math.random();
+    }
+  }
+}
+
+// fragment animation
+@for $i from 1 through 16 {
+  $rotation: math.div(360deg, 16) * ($i - 1);
+
+  .water .fragment:nth-child(#{$i}) {
+    transform: rotate($rotation);
+  }
+}
+
+// core animation
+@for $i from 1 through 4 {
+  $rotation: math.div(120deg, 4) * ($i - 1);
+  $delay: math.div(2s, 8) * ($i - 1);
+
+  .water .core:nth-child(#{$i}) {
+    transform: rotate($rotation);
+    &:before {
+      animation-delay: $delay;
+    }
+    &:after {
+      animation-delay: $delay + 1;
+    }
+  }
+}
