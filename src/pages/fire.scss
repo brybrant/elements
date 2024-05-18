@@ -2,11 +2,12 @@
 @use 'sass:math';
 
 // particle keyframes
-@keyframes fireParticle {
+@keyframes fire-particle {
   10% {
     opacity: 1;
     transform: scale(0.5) translate(-250%, -250%);
   }
+
   20% {
     opacity: 0;
     transform: scale(1) translate(-500%, -500%);
@@ -14,171 +15,177 @@
 }
 
 // fragment keyframes
-@keyframes fireFragmentBefore {
+@keyframes fire-fragment-before {
   0% {
-    top: 60%;
+    transform: translateY(0);
   }
 }
-@keyframes fireFragment1 {
-  50% {
+@keyframes fire-fragment-rotate-left {
+  20% {
     opacity: 1;
-    transform: rotate(-90deg);
   }
-  75% {
-    transform: rotate(-170deg);
+
+  80% {
+    transform: rotate(-180deg);
   }
+
   100% {
     transform: rotate(-180deg);
   }
 }
-@keyframes fireFragment2 {
-  50% {
+@keyframes fire-fragment-rotate-right {
+  20% {
     opacity: 1;
-    transform: rotate(90deg);
   }
-  75% {
-    transform: rotate(170deg);
+
+  80% {
+    transform: rotate(180deg);
   }
+
   100% {
     transform: rotate(180deg);
   }
 }
 
 // core keyframes
-@keyframes fireCore {
+@keyframes fire-core {
   0% {
     opacity: 1;
   }
+
   100% {
-    bottom: 4.5rem;
     opacity: 0;
-    transform: scale(0);
+    transform: translateY(0) scale(0);
   }
 }
 
 .fire {
-  background: linear-gradient(oklab(0.3 0.12 0.06), oklab(0.4 0.12 0.06));
+  background: linear-gradient(oklab(30% 0.12 0.06), oklab(40% 0.12 0.06));
+
   // element
   .element:before {
     content: '';
     position: absolute;
+    inset: 0;
     display: block;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background: radial-gradient(
       closest-side,
       #fff,
-      hsla(30, 100%, 88%, .8),
-      hsla(24, 95%, 76%, .6),
-      hsla(18, 90%, 64%, .4),
-      hsla(12, 85%, 52%, .2),
-      hsla(6, 80%, 40%, 0),
+      hsla(30 100% 88% / 80%),
+      hsla(24 95% 76% / 60%),
+      hsla(18 90% 64% / 40%),
+      hsla(12 85% 52% / 20%),
+      hsla(6 80% 40% / 0%),
     );
     transform: scale(2);
   }
+
   // particle
   .particle-container {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     display: flex;
     flex-flow: row wrap;
     transform: rotate(45deg);
   }
+
   .particle {
-    margin: 3.125%;
-    border-radius: 50%;
     width: 6.25%;
     height: 6.25%;
+    margin: 3.125%;
+    border-radius: 50%;
     background: #ff0;
     opacity: 0;
     transform: scale(0);
+    animation: 10s linear 0s infinite fire-particle;
     will-change: opacity, transform;
-    animation: 10s linear 0s infinite fireParticle;
   }
+
   // fragment
   .fragment-container {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
+
     &:after {
       content: '';
       position: absolute;
-      display: block;
       top: 2.5rem;
       left: calc(50% - 2.25rem);
-      border-radius: 50%;
+      display: block;
       width: 4.5rem;
       height: 4.5rem;
+      border-radius: 50%;
       background: radial-gradient(closest-side, #fff, #fe3, #f30);
       filter: blur(8px);
       mix-blend-mode: plus-lighter;
     }
   }
+
   .fragment {
     position: absolute;
     top: 0;
-    left: calc(50% - 0.75rem);
-    width: 1.5rem;
     height: 100%;
     opacity: 0;
+    animation: 1s linear 0s infinite fire-fragment-rotate-left;
     mix-blend-mode: plus-lighter;
     will-change: opacity, transform;
-    animation: 1s linear 0s infinite fireFragment1;
+
     &:nth-child(odd) {
-      animation-name: fireFragment2;
+      animation-name: fire-fragment-rotate-right;
     }
+
     &:before {
       content: '';
       position: absolute;
-      left: 0;
+      bottom: 0;
       display: block;
       width: 100%;
-      height: 1.5rem;
-      will-change: top;
-      animation: 1s linear 0s infinite fireFragmentBefore;
+      padding-bottom: 100%;
+      animation: 1s linear 0s infinite fire-fragment-before;
+      will-change: transform;
     }
   }
+
   // core
   .core-container {
     position: relative;
     width: 100%;
     height: 100%;
+    filter: blur(4px);
   }
+
   .core {
     position: absolute;
     top: 0;
     left: calc(50% - 2.25rem);
     width: 4.5rem;
     height: 100%;
+
     &:before, &:after {
       content: '';
       position: absolute;
-      bottom: 0;
+      top: -2rem;
       left: 0;
-      border-radius: 50%;
-      border-bottom: 0.125rem solid #ff0;
       width: 4.5rem;
       height: 4.5rem;
+      border-bottom: 0.125rem solid #ff0;
+      border-radius: 50%;
       opacity: 0;
-      filter: blur(4px);
-      will-change: bottom, opacity, transform;
-      animation: 1s ease-out 0s infinite fireCore;
+      transform: translateY(3.5rem) scale(1);
+      animation: 1s ease-out 0s infinite fire-core;
+      will-change: opacity, transform;
     }
   }
+
   .button {
-    background: oklab(0.5 0.12 0.06);
+    background: oklab(50% 0.12 0.06);
+
     &:hover {
-      background: oklab(0.55 0.12 0.06);
+      background: oklab(55% 0.12 0.06);
     }
+
     &:active {
-      background: oklab(0.45 0.12 0.06);
+      background: oklab(45% 0.12 0.06);
     }
   }
 }
@@ -192,16 +199,18 @@
 
 // fragment animation
 @for $i from 1 through 16 {
-  $top: math.div(60%, 16) * $i + 60%;
-  $color: color.mix(#f30, #fe3, math.div(100%, 16) * $i);
+  $width: 100% - math.div(50%, 16) * ($i - 1);
+  $color: color.mix(#fe3, #f30, math.div(100%, 16) * $i);
   $duration: 1s * math.random() + 0.5;
 
   .fire .fragment:nth-child(#{$i}) {
+    left: math.div(100% - $width, 2);
+    width: $width;
     animation-duration: $duration;
+
     &:before {
-      top: $top;
       background: radial-gradient(closest-side, $color, rgba($color, 0));
-      transform: translateY(-50%) scale(5 - (math.div(1, 8) * $i));
+      transform: translateY(4rem - math.div(4rem, 16) * $i);
       animation-duration: $duration;
     }
   }
@@ -214,6 +223,7 @@
       animation-duration: 1s * math.random() + 0.5;
       animation-delay: 0.2s * $i;
     }
+
     &:after {
       animation-duration: 1s * math.random() + 0.5;
       animation-delay: 0.2s * $i;

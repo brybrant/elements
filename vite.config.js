@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import eslintPlugin from '@nabla/vite-plugin-eslint';
-import svgr from 'vite-plugin-svgr';
+import reactPlugin from '@vitejs/plugin-react';
+import eslintPlugin from 'vite-plugin-eslint2';
+import stylelintPlugin from 'vite-plugin-stylelint';
+import svgrPlugin from 'vite-plugin-svgr';
 
 export default defineConfig({
   base: '/elements/',
@@ -9,7 +10,33 @@ export default defineConfig({
     __GITHUB__: JSON.stringify('https://github.com/brybrant/elements'),
   },
   plugins: [
-    svgr({
+    // https://stylelint.io/user-guide/configure/
+    // https://stylelint.io/awesome-stylelint/
+    stylelintPlugin({
+      lintInWorker: true,
+      // rules: {},
+      config: {
+        cache: true,
+        extends: [
+          'stylelint-config-standard-scss',
+          'stylelint-config-prettier-scss',
+          'stylelint-config-hudochenkov/order',
+        ],
+        fix: false,
+        plugins: [
+          'stylelint-high-performance-animation',
+        ],
+        rules: {
+          'hue-degree-notation': 'number',
+          'selector-pseudo-element-colon-notation': 'single',
+          'value-keyword-case': ['lower', {
+            camelCaseSvgKeywords: true
+          }],
+          'plugin/no-low-performance-animation-properties': true
+        },
+      },
+    }),
+    svgrPlugin({
       svgrOptions: {
         plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
         // https://svgo.dev/docs/plugins/
@@ -56,14 +83,8 @@ export default defineConfig({
         }
       },
     }),
-    react(),
-    eslintPlugin({
-      eslintOptions: {
-        cache: true,
-        cacheStrategy: 'content',
-      },
-      formatter: 'stylish',
-    }),
+    reactPlugin(),
+    eslintPlugin(),
   ],
   server: {
     host: '127.0.0.1',
