@@ -15,26 +15,8 @@
 }
 
 // fragment keyframes
-@keyframes fire-fragment-before {
-  0% {
-    transform: translateY(0);
-  }
-}
-@keyframes fire-fragment-rotate-left {
-  20% {
-    opacity: 1;
-  }
-
-  80% {
-    transform: rotate(-180deg);
-  }
-
-  100% {
-    transform: rotate(-180deg);
-  }
-}
-@keyframes fire-fragment-rotate-right {
-  20% {
+@keyframes fire-fragment-left {
+  40% {
     opacity: 1;
   }
 
@@ -44,6 +26,20 @@
 
   100% {
     transform: rotate(180deg);
+  }
+}
+
+@keyframes fire-fragment-right {
+  40% {
+    opacity: 1;
+  }
+
+  80% {
+    transform: rotate(-180deg);
+  }
+
+  100% {
+    transform: rotate(-180deg);
   }
 }
 
@@ -106,7 +102,7 @@
     position: absolute;
     inset: 0;
 
-    &:after {
+    &:before {
       content: '';
       position: absolute;
       top: 2.5rem;
@@ -123,26 +119,21 @@
 
   .fragment {
     position: absolute;
-    top: 0;
-    height: 100%;
+    inset: 0;
     opacity: 0;
-    animation: 1s linear 0s infinite fire-fragment-rotate-left;
+    animation: 1s linear 0s infinite fire-fragment-left;
     mix-blend-mode: plus-lighter;
     will-change: opacity, transform;
 
     &:nth-child(odd) {
-      animation-name: fire-fragment-rotate-right;
+      animation-name: fire-fragment-right;
     }
 
     &:before {
       content: '';
-      position: absolute;
-      bottom: 0;
       display: block;
       width: 100%;
-      padding-bottom: 100%;
-      animation: 1s linear 0s infinite fire-fragment-before;
-      will-change: transform;
+      height: 100%;
     }
   }
 
@@ -198,20 +189,29 @@
 }
 
 // fragment animation
-@for $i from 1 through 16 {
-  $width: 100% - math.div(50%, 16) * ($i - 1);
-  $color: color.mix(#fe3, #f30, math.div(100%, 16) * $i);
-  $duration: 1s * math.random() + 0.5;
+@for $i from 1 through 8 {
+  $i2: $i * 2;
+  $i1: $i2 - 1;
+  $color: color.mix(#f30, #fe3, 100% - math.div(100%, 8) * $i);
+  $scale: -1rem + math.div(1rem, 4) * ($i - 1);
 
-  .fire .fragment:nth-child(#{$i}) {
-    left: math.div(100% - $width, 2);
-    width: $width;
-    animation-duration: $duration;
+  .fire .fragment {
+    &:nth-child(#{$i1}), &:nth-child(#{$i2}) {
+      inset: $scale + 0.5;
+      transform: translateY($scale);
 
-    &:before {
-      background: radial-gradient(closest-side, $color, rgba($color, 0));
-      transform: translateY(4rem - math.div(4rem, 16) * $i);
-      animation-duration: $duration;
+      &:before {
+        background: radial-gradient(closest-side, $color, rgba($color, 0));
+        transform: translateY(2rem - math.div(2rem, 8) * ($i - 1));
+      }
+    }
+
+    &:nth-child(#{$i1}) {
+      animation-duration: 0.5s * math.random() + 0.5;
+    }
+
+    &:nth-child(#{$i2}) {
+      animation-duration: 0.5s * math.random() + 0.5;
     }
   }
 }
