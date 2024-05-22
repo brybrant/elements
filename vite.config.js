@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
-import reactPlugin from '@vitejs/plugin-react';
 import eslintPlugin from 'vite-plugin-eslint2';
+import reactPlugin from '@vitejs/plugin-react';
 import stylelintPlugin from 'vite-plugin-stylelint';
 import svgrPlugin from 'vite-plugin-svgr';
 
@@ -14,7 +14,6 @@ export default defineConfig({
     // https://stylelint.io/awesome-stylelint/
     stylelintPlugin({
       lintInWorker: true,
-      // rules: {},
       config: {
         cache: true,
         extends: [
@@ -30,9 +29,9 @@ export default defineConfig({
           'hue-degree-notation': 'number',
           'selector-pseudo-element-colon-notation': 'single',
           'value-keyword-case': ['lower', {
-            camelCaseSvgKeywords: true
+            camelCaseSvgKeywords: true,
           }],
-          'plugin/no-low-performance-animation-properties': true
+          'plugin/no-low-performance-animation-properties': true,
         },
       },
     }),
@@ -80,11 +79,13 @@ export default defineConfig({
             'removeDesc',
             'removeXlink',
           ],
-        }
+        },
       },
     }),
     reactPlugin(),
-    eslintPlugin(),
+    eslintPlugin({
+      lintInWorker: true,
+    }),
   ],
   server: {
     host: '127.0.0.1',
