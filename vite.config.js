@@ -1,85 +1,39 @@
+import * as path from 'node:path';
+import * as fs from 'node:fs';
+
 import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint2';
 import reactPlugin from '@vitejs/plugin-react';
 import stylelintPlugin from 'vite-plugin-stylelint';
 import svgrPlugin from 'vite-plugin-svgr';
 
+import stylelintConfig from './stylelint.config';
+import svgoConfig from './svgo.config';
+
 export default defineConfig({
   base: '/elements/',
-  define: {
-    __GITHUB__: JSON.stringify('https://github.com/brybrant/elements'),
+  css: {
+    modules: {
+      getJSON: (cssFileName, json) => {
+        const module = path.basename(cssFileName, '.scss');
+
+        fs.mkdir('./modules', {recursive: true}, (error) => {
+          if (error) throw error;
+
+          fs.writeFileSync(`./modules/${module}.json`, JSON.stringify(json));
+        });
+      },
+    },
   },
   plugins: [
-    // https://stylelint.io/user-guide/configure/
-    // https://stylelint.io/awesome-stylelint/
     stylelintPlugin({
       lintInWorker: true,
-      config: {
-        cache: true,
-        extends: [
-          'stylelint-config-standard-scss',
-          'stylelint-config-prettier-scss',
-          'stylelint-config-hudochenkov/order',
-        ],
-        fix: false,
-        plugins: [
-          'stylelint-high-performance-animation',
-        ],
-        rules: {
-          'hue-degree-notation': 'number',
-          'selector-pseudo-element-colon-notation': 'single',
-          'value-keyword-case': ['lower', {
-            camelCaseSvgKeywords: true,
-          }],
-          'plugin/no-low-performance-animation-properties': true,
-        },
-      },
+      config: stylelintConfig,
     }),
     svgrPlugin({
       svgrOptions: {
         plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
-        // https://svgo.dev/docs/plugins/
-        svgoConfig: {
-          plugins: [
-            'removeDoctype',
-            'removeXMLProcInst',
-            'removeXMLNS',
-            'removeComments',
-            'removeMetadata',
-            'removeEditorsNSData',
-            'removeDimensions',
-            'cleanupAttrs',
-            'mergeStyles',
-            'inlineStyles',
-            'minifyStyles',
-            'removeUselessDefs',
-            'cleanupNumericValues',
-            'convertColors',
-            'removeUnknownsAndDefaults',
-            'removeNonInheritableGroupAttrs',
-            'removeUselessStrokeAndFill',
-            'removeHiddenElems',
-            'removeEmptyText',
-            'convertShapeToPath',
-            'convertEllipseToCircle',
-            'moveElemsAttrsToGroup',
-            'moveGroupAttrsToElems',
-            'collapseGroups',
-            'convertPathData',
-            'convertTransform',
-            'removeEmptyAttrs',
-            'removeEmptyContainers',
-            'removeUnusedNS',
-            'reusePaths',
-            'mergePaths',
-            'cleanupListOfValues',
-            'sortAttrs',
-            'sortDefsChildren',
-            'removeTitle',
-            'removeDesc',
-            'removeXlink',
-          ],
-        },
+        svgoConfig: svgoConfig,
       },
     }),
     reactPlugin(),

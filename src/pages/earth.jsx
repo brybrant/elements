@@ -1,8 +1,8 @@
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Elements from '../components/elements';
-import GitHubSVG from '../svg/github.svg?react';
-import './earth.scss';
+import SourceButton from '../components/source-button';
+import styles from './earth.module.scss';
 
 export default function Earth() {
   return (
@@ -11,17 +11,19 @@ export default function Earth() {
         <title>Earth</title>
         <link rel='icon' type='image/svg+xml' href='/elements/earth.svg'/>
       </Helmet>
-      <main className='earth'>
+      <main className={styles.background}>
         <div className='element'>
-          {Elements()}
+          {Elements(styles)}
         </div>
+
         <h1>Earth</h1>
-        <p>Made with CSS by Matt Bryant</p>
-        <a
-          className='button'
-          href={`${__GITHUB__}/blob/master/src/pages/earth.scss`}
-          target='_blank'
-        ><GitHubSVG/>View Source</a>
+
+        <p>By Matt Bryant</p>
+
+        <SourceButton
+          className={styles.button}
+          href='/blob/master/src/pages/earth.module.scss'
+        />
       </main>
     </HelmetProvider>
   );

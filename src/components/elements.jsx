@@ -1,27 +1,25 @@
-const particles = [];
-const fragments = [];
-const cores = [];
+export default function Elements(styles) {
+  const particles = [];
+  const fragments = [];
+  const cores = [];
 
-for (let index = 0; index < 64; index++) {
-  particles.push(<div key={'particle' + index} className='particle'/>);
-  if (index % 4 == 0) {
-    fragments.push(
-      <div key={'fragment' + (fragments.length + 1)} className='fragment'/>
-    );
+  for (let i = 0; i < 64; i++) {
+    particles.push(<div key={'particle' + i} className={styles.particle}/>);
   };
-  if (index % 16 == 0) {
-    cores.push(
-      <div key={'core' + (cores.length + 1)} className='core'/>
-    );
-  };
-};
 
-export default function Elements() {
+  for (let i = 0; i < 16; i++) {
+    fragments.push(<div key={'fragment' + i} className={styles.fragment}/>);
+  };
+
+  for (let i = 0; i < 4; i++) {
+    cores.push(<div key={'core' + i} className={styles.core}/>);
+  }
+
   return (
     <>
-      <div className='particle-container'>{particles}</div>
-      <div className='fragment-container'>{fragments}</div>
-      <div className='core-container'>{cores}</div>
+      <div className={styles.particle_container}>{particles}</div>
+      <div className={styles.fragment_container}>{fragments}</div>
+      <div className={styles.core_container}>{cores}</div>
     </>
   )
 };

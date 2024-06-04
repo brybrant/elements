@@ -1,8 +1,8 @@
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Elements from '../components/elements';
-import GitHubSVG from '../svg/github.svg?react';
-import './air.scss';
+import SourceButton from '../components/source-button';
+import styles from './air.module.scss';
 
 export default function Air() {
   return (
@@ -11,17 +11,19 @@ export default function Air() {
         <title>Air</title>
         <link rel='icon' type='image/svg+xml' href='/elements/air.svg'/>
       </Helmet>
-      <main className='air'>
+      <main className={styles.background}>
         <div className='element'>
-          {Elements()}
+          {Elements(styles)}
         </div>
+
         <h1>Air</h1>
-        <p>Made with CSS by Matt Bryant</p>
-        <a
-          className='button'
-          href={`${__GITHUB__}/blob/master/src/pages/air.scss`}
-          target='_blank'
-        ><GitHubSVG/>View Source</a>
+
+        <p>By Matt Bryant</p>
+
+        <SourceButton
+          className={styles.button}
+          href='/blob/master/src/pages/air.module.scss'
+        />
       </main>
     </HelmetProvider>
   );

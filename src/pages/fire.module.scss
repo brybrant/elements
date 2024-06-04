@@ -2,7 +2,7 @@
 @use 'sass:math';
 
 // particle keyframes
-@keyframes fire-particle {
+@keyframes fire_particle {
   10% {
     opacity: 1;
     transform: scale(0.5) translate(-250%, -250%);
@@ -15,7 +15,7 @@
 }
 
 // fragment keyframes
-@keyframes fire-fragment-left {
+@keyframes fire_fragment_left {
   40% {
     opacity: 1;
   }
@@ -29,7 +29,7 @@
   }
 }
 
-@keyframes fire-fragment-right {
+@keyframes fire_fragment_right {
   40% {
     opacity: 1;
   }
@@ -44,7 +44,7 @@
 }
 
 // core keyframes
-@keyframes fire-core {
+@keyframes fire_core {
   0% {
     opacity: 1;
   }
@@ -55,11 +55,19 @@
   }
 }
 
-.fire {
+.background {
   background: linear-gradient(oklab(30% 0.12 0.06), oklab(40% 0.12 0.06));
+}
 
-  // element
-  .element:before {
+// particle
+.particle_container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-flow: row wrap;
+  transform: rotate(45deg);
+
+  &:before {
     content: '';
     position: absolute;
     inset: 0;
@@ -75,115 +83,106 @@
     );
     transform: scale(2);
   }
+}
 
-  // particle
-  .particle-container {
+.particle {
+  width: 6.25%;
+  height: 6.25%;
+  margin: 3.125%;
+  border-radius: 50%;
+  background: #ff0;
+  opacity: 0;
+  transform: scale(0);
+  animation: 10s linear 0s infinite fire_particle;
+  will-change: opacity, transform;
+}
+
+// fragment
+.fragment_container {
+  position: absolute;
+  inset: 0;
+
+  &:before {
+    content: '';
     position: absolute;
-    inset: 0;
-    display: flex;
-    flex-flow: row wrap;
-    transform: rotate(45deg);
-  }
-
-  .particle {
-    width: 6.25%;
-    height: 6.25%;
-    margin: 3.125%;
+    top: 2.5rem;
+    left: calc(50% - 2.25rem);
+    display: block;
+    width: 4.5rem;
+    height: 4.5rem;
     border-radius: 50%;
-    background: #ff0;
-    opacity: 0;
-    transform: scale(0);
-    animation: 10s linear 0s infinite fire-particle;
-    will-change: opacity, transform;
-  }
-
-  // fragment
-  .fragment-container {
-    position: absolute;
-    inset: 0;
-
-    &:before {
-      content: '';
-      position: absolute;
-      top: 2.5rem;
-      left: calc(50% - 2.25rem);
-      display: block;
-      width: 4.5rem;
-      height: 4.5rem;
-      border-radius: 50%;
-      background: radial-gradient(closest-side, #fff, #fe3, #f30);
-      filter: blur(8px);
-      mix-blend-mode: plus-lighter;
-    }
-  }
-
-  .fragment {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    animation: 1s linear 0s infinite fire-fragment-left;
+    background: radial-gradient(closest-side, #fff, #fe3, #f30);
+    filter: blur(8px);
     mix-blend-mode: plus-lighter;
-    will-change: opacity, transform;
+  }
+}
 
-    &:nth-child(odd) {
-      animation-name: fire-fragment-right;
-    }
+.fragment {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: 1s linear 0s infinite fire_fragment_left;
+  mix-blend-mode: plus-lighter;
+  will-change: opacity, transform;
 
-    &:before {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+  &:nth-child(odd) {
+    animation-name: fire_fragment_right;
   }
 
-  // core
-  .core-container {
-    position: relative;
+  &:before {
+    content: '';
+    display: block;
     width: 100%;
     height: 100%;
-    filter: blur(4px);
   }
+}
 
-  .core {
+// core
+.core_container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  filter: blur(4px);
+}
+
+.core {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 2.25rem);
+  width: 4.5rem;
+  height: 100%;
+
+  &:before, &:after {
+    content: '';
     position: absolute;
-    top: 0;
-    left: calc(50% - 2.25rem);
+    top: -2rem;
+    left: 0;
     width: 4.5rem;
-    height: 100%;
+    height: 4.5rem;
+    border-bottom: 0.125rem solid #ff0;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translateY(3.5rem) scale(1);
+    animation: 1s ease-out 0s infinite fire_core;
+    will-change: opacity, transform;
+  }
+}
 
-    &:before, &:after {
-      content: '';
-      position: absolute;
-      top: -2rem;
-      left: 0;
-      width: 4.5rem;
-      height: 4.5rem;
-      border-bottom: 0.125rem solid #ff0;
-      border-radius: 50%;
-      opacity: 0;
-      transform: translateY(3.5rem) scale(1);
-      animation: 1s ease-out 0s infinite fire-core;
-      will-change: opacity, transform;
-    }
+.button {
+  background: oklab(48% 0.12 0.06);
+
+  &:hover {
+    background: oklab(52% 0.12 0.06);
   }
 
-  .button {
-    background: oklab(50% 0.12 0.06);
-
-    &:hover {
-      background: oklab(55% 0.12 0.06);
-    }
-
-    &:active {
-      background: oklab(45% 0.12 0.06);
-    }
+  &:active {
+    background: oklab(44% 0.12 0.06);
   }
 }
 
 // particle animation
 @for $i from 1 through 64 {
-  .fire .particle:nth-child(#{$i}) {
+  .particle:nth-child(#{$i}) {
     animation-delay: 10s * math.random();
   }
 }
@@ -195,7 +194,7 @@
   $color: color.mix(#f30, #fe3, 100% - math.div(100%, 8) * $i);
   $scale: -1rem + math.div(1rem, 4) * ($i - 1);
 
-  .fire .fragment {
+  .fragment {
     &:nth-child(#{$i1}), &:nth-child(#{$i2}) {
       inset: $scale + 0.5;
       transform: translateY($scale);
@@ -218,7 +217,7 @@
 
 // core animation
 @for $i from 1 through 4 {
-  .fire .core:nth-child(#{$i}) {
+  .core:nth-child(#{$i}) {
     &:before {
       animation-duration: 1s * math.random() + 0.5;
       animation-delay: 0.2s * $i;

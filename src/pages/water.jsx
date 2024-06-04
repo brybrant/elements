@@ -1,8 +1,8 @@
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import Elements from '../components/elements';
-import GitHubSVG from '../svg/github.svg?react';
-import './water.scss';
+import SourceButton from '../components/source-button';
+import styles from './water.module.scss';
 
 export default function Water() {
   return (
@@ -11,17 +11,19 @@ export default function Water() {
         <title>Water</title>
         <link rel='icon' type='image/svg+xml' href='/elements/water.svg'/>
       </Helmet>
-      <main className='water'>
+      <main className={styles.background}>
         <div className='element'>
-          {Elements()}
+          {Elements(styles)}
         </div>
+
         <h1>Water</h1>
-        <p>Made with CSS by Matt Bryant</p>
-        <a
-          className='button'
-          href={`${__GITHUB__}/blob/master/src/pages/water.scss`}
-          target='_blank'
-        ><GitHubSVG/>View Source</a>
+
+        <p>By Matt Bryant</p>
+
+        <SourceButton
+          className={styles.button}
+          href='/blob/master/src/pages/water.module.scss'
+        />
       </main>
     </HelmetProvider>
   );

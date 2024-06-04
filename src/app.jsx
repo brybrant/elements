@@ -9,11 +9,12 @@ import {
   Routes,
 } from 'react-router-dom';
 
+import './app.scss';
+
 import Fire from './pages/fire.jsx';
 import Water from './pages/water.jsx';
 import Earth from './pages/earth.jsx';
 import Air from './pages/air.jsx';
-import './app.scss';
 
 const Navigation = () => (
   <>

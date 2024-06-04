@@ -21,4 +21,8 @@ $ npm run dev
 
 This project is designed to be deployed to [GitHub Pages](https://vitejs.dev/guide/static-deploy.html#github-pages).
 
-[GitHub workflow for deployment](https://github.com/brybrant/elements/blob/master/.github/workflows/deploy.yaml)
+[GitHub workflow for deployment](/.github/workflows/deploy.yaml)
+
+## Montserrat (Google Font)
+
+This project uses a subset of ["Montserrat"](https://github.com/JulietaUla/Montserrat) which is licensed under the [OFL-1.1 License](https://openfontlicense.org/).
