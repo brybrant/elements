@@ -1,39 +1,28 @@
-import * as path from 'node:path';
-import * as fs from 'node:fs';
-
 import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint2';
 import reactPlugin from '@vitejs/plugin-react';
 import stylelintPlugin from 'vite-plugin-stylelint';
 import svgrPlugin from 'vite-plugin-svgr';
 
-import stylelintConfig from './stylelint.config';
-import svgoConfig from './svgo.config';
+import * as configs from '@brybrant/configs';
 
 export default defineConfig({
   base: '/elements/',
   css: {
     modules: {
-      getJSON: (cssFileName, json) => {
-        const module = path.basename(cssFileName, '.scss');
-
-        fs.mkdir('./modules', {recursive: true}, (error) => {
-          if (error) throw error;
-
-          fs.writeFileSync(`./modules/${module}.json`, JSON.stringify(json));
-        });
-      },
+      getJSON: configs.cssModulesExportJSON,
     },
+    postcss: configs.postCSSConfig,
   },
   plugins: [
     stylelintPlugin({
       lintInWorker: true,
-      config: stylelintConfig,
+      config: configs.stylelintConfig,
     }),
     svgrPlugin({
       svgrOptions: {
         plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
-        svgoConfig: svgoConfig,
+        svgoConfig: configs.svgoConfig,
       },
     }),
     reactPlugin(),
