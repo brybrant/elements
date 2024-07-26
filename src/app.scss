@@ -27,7 +27,7 @@
 html {
   background: #000;
   font-size: 100%;
-  font-size: clamp(100%, 4vw, 200%);
+  font-size: clamp(100%, min(5vw, 3.8vh), 200%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   text-size-adjust: 100%;
@@ -65,14 +65,13 @@ nav {
   flex-flow: row nowrap;
   justify-content: center;
   transform: translateX(-50%);
-  backdrop-filter: blur(16px);
 
   a {
     position: relative;
     display: block;
     padding: $nav-vertical-padding 0.625rem;
     background: rgba(#000, 0.5);
-    color: #bbb;
+    color: #ccc;
     font-weight: 400;
     font-size: 1.125rem;
     line-height: $nav-line-height;
@@ -118,7 +117,8 @@ main {
     inset: 0;
     display: block;
     background:
-      radial-gradient(rgba(#000, 0), rgba(#000, .5)) 50% 100% / 150% 150%;
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='99' numOctaves='4' result='t'/%3E%3CfeFlood flood-color='%23000' result='f'/%3E%3CfeComposite in='t' in2='f' operator='xor'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1' height='1' filter='url(%23f)' opacity='0.3'/%3E%3C/svg%3E") 50% 50% / 128px 128px,
+      radial-gradient(rgba(#000, 0), rgba(#000, .7)) 50% 100% / 150% 150%;
     mix-blend-mode: multiply;
   }
 }
@@ -134,7 +134,7 @@ main {
 h1 {
   position: relative;
   margin: 1.5rem 0 0;
-  color: #ccc;
+  color: #eee;
   font-weight: 200;
   font-size: 5rem;
   line-height: 6rem;
@@ -144,7 +144,7 @@ h1 {
 p {
   position: relative;
   margin: 0;
-  color: #ccc;
+  color: #eee;
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 1.875rem;
@@ -158,7 +158,7 @@ p {
   margin: 1rem 0 0;
   padding: 1px 0.75rem;
   border-radius: 0.25rem;
-  background: oklab(48% 0 0);
+  background: #777;
   color: #eee;
   font-weight: 400;
   font-size: 1rem;
@@ -170,14 +170,14 @@ p {
   cursor: pointer;
 
   &:hover {
-    background: oklab(52% 0 0);
+    background: #888;
     color: #fff;
   }
 
   &:active {
     padding-top: 2px;
     padding-bottom: 0;
-    background: oklab(44% 0 0);
+    background: #666;
     color: #ddd;
   }
 

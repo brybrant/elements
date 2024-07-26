@@ -1,8 +1,9 @@
 @use 'sass:color';
 @use 'sass:math';
+@use '../../node_modules/@brybrant/sass-okhsv-okhsl' as convert;
 
 // particle keyframes
-@keyframes water_particle {
+@keyframes water-particle {
   100% {
     opacity: 1;
     transform: translateY(6rem) scale(0);
@@ -10,14 +11,14 @@
 }
 
 // fragment keyframes
-@keyframes water_fragment {
+@keyframes water-fragment {
   100% {
     transform: rotate(45deg);
   }
 }
 
 // core keyframes
-@keyframes water_core {
+@keyframes water-core {
   100% {
     opacity: 1;
     transform: scale(0);
@@ -25,7 +26,10 @@
 }
 
 .background {
-  background: linear-gradient(oklab(30% 0 -0.1), oklab(40% 0 -0.1));
+  background: linear-gradient(
+    convert.color_to_hex(convert.okhsv_to_rgba(250deg, 0.9, 0.5)),
+    convert.color_to_hex(convert.okhsv_to_rgba(250deg, 0.8, 0.7)),
+  );
 }
 
 // particle
@@ -41,11 +45,11 @@
     background: radial-gradient(
       closest-side,
       #fff,
-      hsla(190 100% 86% / 80%),
-      hsla(200 90% 72% / 60%),
-      hsla(210 70% 58% / 40%),
-      hsla(220 60% 44% / 20%),
-      hsla(230 50% 30% / 0%),
+      convert.okhsv_to_rgba(210deg, 0.2, 1, 0.8),
+      convert.okhsv_to_rgba(220deg, 0.4, 0.9, 0.6),
+      convert.okhsv_to_rgba(230deg, 0.6, 0.8, 0.4),
+      convert.okhsv_to_rgba(240deg, 0.8, 0.7, 0.2),
+      convert.okhsv_to_rgba(250deg, 1, 0.6, 0),
     );
     transform: scale(2);
   }
@@ -69,7 +73,7 @@
     border-radius: 50%;
     background: #4af;
     opacity: 0;
-    animation: 1s ease-in 0s infinite water_particle;
+    animation: 1s ease-in 0s infinite water-particle;
     will-change: opacity, transform;
   }
 }
@@ -79,7 +83,7 @@
   position: absolute;
   inset: 0;
   filter: blur(4px);
-  animation: 1s linear 0s infinite water_fragment;
+  animation: 1s linear 0s infinite water-fragment;
   mix-blend-mode: plus-lighter;
   will-change: transform;
 }
@@ -121,7 +125,7 @@
     inset: 0;
     border-radius: 50%;
     opacity: 0;
-    animation: 2s ease-in 0s infinite water_core;
+    animation: 2s ease-in 0s infinite water-core;
     will-change: opacity, transform;
   }
 
@@ -137,14 +141,14 @@
 }
 
 .button {
-  background: oklab(48% 0 -0.1);
+  background: convert.color_to_hex(convert.okhsv_to_rgba(250deg, 0.8, 0.65));
 
   &:hover {
-    background: oklab(52% 0 -0.1);
+    background: convert.color_to_hex(convert.okhsv_to_rgba(250deg, 0.8, 0.7));
   }
 
   &:active {
-    background: oklab(44% 0 -0.1);
+    background: convert.color_to_hex(convert.okhsv_to_rgba(250deg, 0.8, 0.6));
   }
 }
 

@@ -1,8 +1,9 @@
 @use 'sass:color';
 @use 'sass:math';
+@use '../../node_modules/@brybrant/sass-okhsv-okhsl' as convert;
 
 // particle keyframes
-@keyframes fire_particle {
+@keyframes fire-particle {
   10% {
     opacity: 1;
     transform: scale(0.5) translate(-250%, -250%);
@@ -15,7 +16,7 @@
 }
 
 // fragment keyframes
-@keyframes fire_fragment_left {
+@keyframes fire-fragment-left {
   40% {
     opacity: 1;
   }
@@ -29,7 +30,7 @@
   }
 }
 
-@keyframes fire_fragment_right {
+@keyframes fire-fragment-right {
   40% {
     opacity: 1;
   }
@@ -44,7 +45,7 @@
 }
 
 // core keyframes
-@keyframes fire_core {
+@keyframes fire-core {
   0% {
     opacity: 1;
   }
@@ -56,7 +57,10 @@
 }
 
 .background {
-  background: linear-gradient(oklab(30% 0.12 0.06), oklab(40% 0.12 0.06));
+  background: linear-gradient(
+    convert.color_to_hex(convert.okhsv_to_rgba(29deg, 0.9, 0.5)),
+    convert.color_to_hex(convert.okhsv_to_rgba(29deg, 0.8, 0.7)),
+  );
 }
 
 // particle
@@ -75,11 +79,11 @@
     background: radial-gradient(
       closest-side,
       #fff,
-      hsla(30 100% 88% / 80%),
-      hsla(24 95% 76% / 60%),
-      hsla(18 90% 64% / 40%),
-      hsla(12 85% 52% / 20%),
-      hsla(6 80% 40% / 0%),
+      convert.okhsv_to_rgba(85deg, 0.2, 0.94, 0.8),
+      convert.okhsv_to_rgba(71deg, 0.4, 0.88, 0.6),
+      convert.okhsv_to_rgba(57deg, 0.6, 0.82, 0.4),
+      convert.okhsv_to_rgba(43deg, 0.8, 0.76, 0.2),
+      convert.okhsv_to_rgba(29deg, 1, 0.7, 0),
     );
     transform: scale(2);
   }
@@ -93,7 +97,7 @@
   background: #ff0;
   opacity: 0;
   transform: scale(0);
-  animation: 10s linear 0s infinite fire_particle;
+  animation: 10s linear 0s infinite fire-particle;
   will-change: opacity, transform;
 }
 
@@ -121,12 +125,12 @@
   position: absolute;
   inset: 0;
   opacity: 0;
-  animation: 1s linear 0s infinite fire_fragment_left;
+  animation: 1s linear 0s infinite fire-fragment-left;
   mix-blend-mode: plus-lighter;
   will-change: opacity, transform;
 
   &:nth-child(odd) {
-    animation-name: fire_fragment_right;
+    animation-name: fire-fragment-right;
   }
 
   &:before {
@@ -163,20 +167,20 @@
     border-radius: 50%;
     opacity: 0;
     transform: translateY(3.5rem) scale(1);
-    animation: 1s ease-out 0s infinite fire_core;
+    animation: 1s ease-out 0s infinite fire-core;
     will-change: opacity, transform;
   }
 }
 
 .button {
-  background: oklab(48% 0.12 0.06);
+  background: convert.color_to_hex(convert.okhsv_to_rgba(29deg, 0.8, 0.6));
 
   &:hover {
-    background: oklab(52% 0.12 0.06);
+    background: convert.color_to_hex(convert.okhsv_to_rgba(29deg, 0.8, 0.65));
   }
 
   &:active {
-    background: oklab(44% 0.12 0.06);
+    background: convert.color_to_hex(convert.okhsv_to_rgba(29deg, 0.8, 0.55));
   }
 }
 
