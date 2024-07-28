@@ -38,8 +38,8 @@
 
 .background {
   background: linear-gradient(
-    convert.color_to_hex(convert.okhsv_to_rgba(220deg, 0.4, 0.35)),
-    convert.color_to_hex(convert.okhsv_to_rgba(220deg, 0.2, 0.55)),
+    convert.color_to_hex(convert.okhsl_to_rgba(220deg, 0.4, 0.3)),
+    convert.color_to_hex(convert.okhsl_to_rgba(220deg, 0.2, 0.5)),
   );
 }
 
@@ -104,11 +104,16 @@
     background: radial-gradient(
       closest-side,
       #fff,
-      convert.okhsv_to_rgba(212deg, 0.05, 0.88, 0.8),
-      convert.okhsv_to_rgba(214deg, 0.1, 0.76, 0.6),
-      convert.okhsv_to_rgba(216deg, 0.15, 0.64, 0.4),
-      convert.okhsv_to_rgba(218deg, 0.2, 0.52, 0.2),
-      convert.okhsv_to_rgba(220deg, 0.25, 0.4, 0),
+      convert.okhsl_to_rgba(211deg, 0.03, 0.94, 0.9),
+      convert.okhsl_to_rgba(212deg, 0.06, 0.88, 0.8),
+      convert.okhsl_to_rgba(213deg, 0.09, 0.82, 0.7),
+      convert.okhsl_to_rgba(214deg, 0.12, 0.76, 0.6),
+      convert.okhsl_to_rgba(215deg, 0.15, 0.7, 0.5),
+      convert.okhsl_to_rgba(216deg, 0.18, 0.64, 0.4),
+      convert.okhsl_to_rgba(217deg, 0.21, 0.58, 0.3),
+      convert.okhsl_to_rgba(218deg, 0.24, 0.52, 0.2),
+      convert.okhsl_to_rgba(219deg, 0.27, 0.46, 0.1),
+      convert.okhsl_to_rgba(220deg, 0.3, 0.4, 0),
     );
     transform: scale(1.25);
   }
@@ -184,14 +189,14 @@
 }
 
 .button {
-  background: convert.color_to_hex(convert.okhsv_to_rgba(220deg, 0.2, 0.45));
+  background: convert.color_to_hex(convert.okhsl_to_rgba(220deg, 0.2, 0.4));
 
   &:hover {
-    background: convert.color_to_hex(convert.okhsv_to_rgba(220deg, 0.2, 0.5));
+    background: convert.color_to_hex(convert.okhsl_to_rgba(220deg, 0.2, 0.45));
   }
 
   &:active {
-    background: convert.color_to_hex(convert.okhsv_to_rgba(220deg, 0.2, 0.4));
+    background: convert.color_to_hex(convert.okhsl_to_rgba(220deg, 0.2, 0.35));
   }
 }
 
