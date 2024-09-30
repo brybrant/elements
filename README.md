@@ -1,4 +1,4 @@
-# React + Vite
+# Elements
 
 Some CSS experiments made with [React](https://react.dev/) and [Vite](https://vitejs.dev) by Matt Bryant:
 
