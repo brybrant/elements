@@ -9,12 +9,10 @@ export default function Water() {
     <HelmetProvider>
       <Helmet>
         <title>Water</title>
-        <link rel='icon' type='image/svg+xml' href='/elements/water.svg'/>
+        <link rel='icon' type='image/svg+xml' href='/elements/water.svg' />
       </Helmet>
       <main className={styles.background}>
-        <div className='element'>
-          {Elements(styles)}
-        </div>
+        <div className='element'>{Elements(styles)}</div>
 
         <h1>Water</h1>
 
@@ -27,4 +25,4 @@ export default function Water() {
       </main>
     </HelmetProvider>
   );
-};
+}

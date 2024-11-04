@@ -1,6 +1,6 @@
 # Elements
 
-Some CSS experiments made with [React](https://react.dev/) and [Vite](https://vitejs.dev) by Matt Bryant:
+Some CSS experiments inspired by *The Four Elements of Greek Cosmology*, made with [React](https://react.dev/) and [Vite](https://vitejs.dev) by Matt Bryant:
 
 - [Fire](https://brybrant.github.io/elements/#/fire)
 - [Water](https://brybrant.github.io/elements/#/water)

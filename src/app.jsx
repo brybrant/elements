@@ -24,7 +24,7 @@ const Navigation = () => (
       <NavLink to={'earth'}>Earth</NavLink>
       <NavLink to={'air'}>Air</NavLink>
     </nav>
-    <Outlet/>
+    <Outlet />
   </>
 );
 
@@ -32,12 +32,12 @@ ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
     <HashRouter>
       <Routes>
-        <Route element={<Navigation/>}>
-          <Route path='fire' element={<Fire/>}/>
-          <Route path='water' element={<Water/>}/>
-          <Route path='earth' element={<Earth/>}/>
-          <Route path='air' element={<Air/>}/>
-          <Route path='/' element={<Navigate to='fire' replace={true}/>}/>
+        <Route element={<Navigation />}>
+          <Route path='fire' element={<Fire />} />
+          <Route path='water' element={<Water />} />
+          <Route path='earth' element={<Earth />} />
+          <Route path='air' element={<Air />} />
+          <Route path='/' element={<Navigate to='fire' replace={true} />} />
         </Route>
       </Routes>
     </HashRouter>

@@ -1,11 +1,15 @@
-import GitHubSVG from '../svg/github.svg?react';
+import GitHubSVG from '../../node_modules/@brybrant/svg-icons/GitHub.svg';
 
 export default function SourceButton(props) {
   return (
     <a
+      rel='noreferrer'
       className={`button ${props.className}`}
       href={`https://github.com/brybrant/elements${props.href || ''}`}
       target='_blank'
-    ><GitHubSVG/>View Source</a>
+    >
+      <span dangerouslySetInnerHTML={{ __html: GitHubSVG }} />
+      View Source
+    </a>
   );
-};
+}

@@ -9,12 +9,10 @@ export default function Fire() {
     <HelmetProvider>
       <Helmet>
         <title>Fire</title>
-        <link rel='icon' type='image/svg+xml' href='/elements/fire.svg'/>
+        <link rel='icon' type='image/svg+xml' href='/elements/fire.svg' />
       </Helmet>
       <main className={styles.background}>
-        <div className='element'>
-          {Elements(styles)}
-        </div>
+        <div className='element'>{Elements(styles)}</div>
 
         <h1>Fire</h1>
 
@@ -27,4 +25,4 @@ export default function Fire() {
       </main>
     </HelmetProvider>
   );
-};
+}

@@ -9,12 +9,10 @@ export default function Air() {
     <HelmetProvider>
       <Helmet>
         <title>Air</title>
-        <link rel='icon' type='image/svg+xml' href='/elements/air.svg'/>
+        <link rel='icon' type='image/svg+xml' href='/elements/air.svg' />
       </Helmet>
       <main className={styles.background}>
-        <div className='element'>
-          {Elements(styles)}
-        </div>
+        <div className='element'>{Elements(styles)}</div>
 
         <h1>Air</h1>
 
@@ -27,4 +25,4 @@ export default function Air() {
       </main>
     </HelmetProvider>
   );
-};
+}

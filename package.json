@@ -3,12 +3,11 @@
   "author": "brybrant",
   "license": "GPL-3.0-only",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "repository": {
@@ -27,20 +26,19 @@
   },
   "devDependencies": {
     "@brybrant/configs": "github:brybrant/configs",
-    "@brybrant/sass-okhsv-okhsl": "github:brybrant/sass-okhsv-okhsl",
-    "@svgr/plugin-jsx": "^8.1.0",
-    "@svgr/plugin-svgo": "^8.1.0",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint-plugin-react": "^7.35.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.9",
-    "sass": "^1.77.8",
-    "vite": "^5.4.0",
-    "vite-plugin-eslint2": "^4.4.0",
+    "@brybrant/sass-okhsv-okhsl": "^1.0.0",
+    "@brybrant/svg-icons": "github:brybrant/svg-icons",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "eslint-plugin-react": "^7.37.2",
+    "globals": "^15.11.0",
+    "sass": "^1.80.6",
+    "terser": "^5.36.0",
+    "vite": "^5.4.10",
+    "vite-plugin-eslint2": "^4.4.2",
     "vite-plugin-stylelint": "^5.3.1",
-    "vite-plugin-svgr": "^4.2.0"
+    "vite-plugin-svgo": "^1.6.2"
   },
   "browserslist": [
     "> 1%, not dead, not ie 11, not op_mini all"

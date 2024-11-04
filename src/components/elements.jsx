@@ -4,15 +4,15 @@ export default function Elements(styles) {
   const cores = [];
 
   for (let i = 0; i < 64; i++) {
-    particles.push(<div key={'particle' + i} className={styles.particle}/>);
-  };
+    particles.push(<div key={'particle' + i} className={styles.particle} />);
+  }
 
   for (let i = 0; i < 16; i++) {
-    fragments.push(<div key={'fragment' + i} className={styles.fragment}/>);
-  };
+    fragments.push(<div key={'fragment' + i} className={styles.fragment} />);
+  }
 
   for (let i = 0; i < 4; i++) {
-    cores.push(<div key={'core' + i} className={styles.core}/>);
+    cores.push(<div key={'core' + i} className={styles.core} />);
   }
 
   return (
@@ -21,5 +21,5 @@ export default function Elements(styles) {
       <div className={styles.fragment_container}>{fragments}</div>
       <div className={styles.core_container}>{cores}</div>
     </>
-  )
-};
+  );
+}

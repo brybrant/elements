@@ -9,12 +9,10 @@ export default function Earth() {
     <HelmetProvider>
       <Helmet>
         <title>Earth</title>
-        <link rel='icon' type='image/svg+xml' href='/elements/earth.svg'/>
+        <link rel='icon' type='image/svg+xml' href='/elements/earth.svg' />
       </Helmet>
       <main className={styles.background}>
-        <div className='element'>
-          {Elements(styles)}
-        </div>
+        <div className='element'>{Elements(styles)}</div>
 
         <h1>Earth</h1>
 
@@ -27,4 +25,4 @@ export default function Earth() {
       </main>
     </HelmetProvider>
   );
-};
+}
