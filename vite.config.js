@@ -33,6 +33,11 @@ export default defineConfig(({ mode }) => {
         getJSON: configs.cssModulesExportJSON,
       },
       postcss: configs.postCSSConfig,
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+        },
+      },
     },
     plugins: [
       stylelintPlugin({
