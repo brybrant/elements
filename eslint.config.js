@@ -40,4 +40,9 @@ export default eslintConfig({
     'react/no-unsafe': 0,
     'react/require-render-return': 2,
   },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 });
