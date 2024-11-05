@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import GitHubSVG from '../../node_modules/@brybrant/svg-icons/GitHub.svg';
 
 export default function SourceButton(props) {
@@ -13,3 +15,8 @@ export default function SourceButton(props) {
     </a>
   );
 }
+
+SourceButton.propTypes = {
+  className: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
+};
