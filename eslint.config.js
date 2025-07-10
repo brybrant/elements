@@ -9,6 +9,11 @@ export default eslintConfig(react.configs.flat.recommended, {
     globals: {
       ...globals.browser,
     },
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
+    },
   },
   plugins: {
     react,

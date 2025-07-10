@@ -1,6 +1,8 @@
 @use 'sass:color';
 @use 'sass:math';
-@use '../../node_modules/@brybrant/sass-okhsv-okhsl' as convert;
+@use 'pkg:@brybrant/sass-okhsv-okhsl' as convert;
+
+@use '../app' as *;
 
 // particle keyframes
 @keyframes fire-particle {
@@ -65,16 +67,18 @@
 
 // particle
 .particle_container {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
   display: flex;
   flex-flow: row wrap;
   transform: rotate(45deg);
 
   &:before {
+    @extend %full-size;
+
     content: '';
     position: absolute;
-    inset: 0;
     display: block;
     background: radial-gradient(
       closest-side,
@@ -106,31 +110,37 @@
   will-change: opacity, transform;
 }
 
+$_fragment-background-size: 4.5rem;
+
 // fragment
 .fragment_container {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
 
   &:before {
     content: '';
     position: absolute;
     top: 2.5rem;
-    left: calc(50% - 2.25rem);
+    left: math.div($element-size - $_fragment-background-size, 2);
     display: block;
-    width: 4.5rem;
-    height: 4.5rem;
+    width: $_fragment-background-size;
+    height: $_fragment-background-size;
     border-radius: 50%;
     background: radial-gradient(closest-side, #fff, #fe3, #f30);
     filter: blur(8px);
+    mix-blend-mode: screen;
     mix-blend-mode: plus-lighter;
   }
 }
 
 .fragment {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
   opacity: 0;
   animation: 1s linear 0s infinite fire-fragment-left;
+  mix-blend-mode: screen;
   mix-blend-mode: plus-lighter;
   will-change: opacity, transform;
 
@@ -143,6 +153,7 @@
     display: block;
     width: 100%;
     height: 100%;
+    transform-origin: 50% 100%;
   }
 }
 
@@ -154,11 +165,13 @@
   filter: blur(4px);
 }
 
+$_core-size: 4.5rem;
+
 .core {
   position: absolute;
   top: 0;
-  left: calc(50% - 2.25rem);
-  width: 4.5rem;
+  left: math.div($element-size - $_core-size, 2);
+  width: $_core-size;
   height: 100%;
 
   &:before, &:after {
@@ -166,26 +179,14 @@
     position: absolute;
     top: -2rem;
     left: 0;
-    width: 4.5rem;
-    height: 4.5rem;
+    width: $_core-size;
+    height: $_core-size;
     border-bottom: 0.125rem solid #ff0;
     border-radius: 50%;
     opacity: 0;
     transform: translateY(3.5rem) scale(1);
     animation: 1s ease-out 0s infinite fire-core;
     will-change: opacity, transform;
-  }
-}
-
-.button {
-  background: convert.color_to_hex(convert.okhsl_to_rgba(29deg, 0.8, 0.4));
-
-  &:hover {
-    background: convert.color_to_hex(convert.okhsl_to_rgba(29deg, 0.8, 0.45));
-  }
-
-  &:active {
-    background: convert.color_to_hex(convert.okhsl_to_rgba(29deg, 0.8, 0.35));
   }
 }
 
@@ -201,16 +202,17 @@
   $i2: $i * 2;
   $i1: $i2 - 1;
   $color: color.mix(#f30, #fe3, 100% - math.div(100%, 8) * $i);
-  $scale: -1rem + math.div(1rem, 4) * ($i - 1);
+  $scale: 1.2 - 0.1 * ($i - 1);
+  $offset1: 0.75rem - 0.125rem * ($i - 1);
+  $offset2: 1.75rem - 0.25rem * ($i - 1);
 
   .fragment {
     &:nth-child(#{$i1}), &:nth-child(#{$i2}) {
-      inset: $scale + 0.5;
-      transform: translateY($scale);
+      transform: translateY(-$offset1);
 
       &:before {
         background: radial-gradient(closest-side, $color, rgba($color, 0));
-        transform: translateY(2rem - math.div(2rem, 8) * ($i - 1));
+        transform: scale($scale) translateY($offset2);
       }
     }
 

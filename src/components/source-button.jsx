@@ -1,22 +1,19 @@
 import PropTypes from 'prop-types';
 
-import GitHubSVG from '../../node_modules/@brybrant/svg-icons/GitHub.svg';
+import GitHubSVG from '@brybrant/svg-icons/GitHub.svg';
 
-export default function SourceButton(props) {
+export default function SourceButton({ href }) {
   return (
     <a
       rel='noreferrer'
-      className={`button ${props.className}`}
-      href={`https://github.com/brybrant/elements${props.href || ''}`}
+      className='button'
+      href={`https://github.com/brybrant/elements${href || ''}`}
       target='_blank'
-    >
-      <span dangerouslySetInnerHTML={{ __html: GitHubSVG }} />
-      View Source
-    </a>
+      dangerouslySetInnerHTML={{ __html: GitHubSVG }}
+    />
   );
 }
 
 SourceButton.propTypes = {
-  className: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,
 };

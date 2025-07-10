@@ -25,9 +25,11 @@
 }
 
 html {
+  overflow-x: hidden;
   background: #000;
-  font-size: 100%;
-  font-size: clamp(100%, min(5vw, 3.8vh), 200%);
+  font-size: 200%;
+  font-size: clamp(100%, 4.5vmin, 200%);
+  font-size: clamp(100%, 4.5dvmin, 200%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   text-size-adjust: 100%;
@@ -36,7 +38,9 @@ html {
 }
 
 body {
+  position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   font-family:
     Montserrat,
@@ -48,13 +52,9 @@ body {
   text-align: center;
 }
 
-#app {
-  min-height: 100vh;
-}
-
-$nav-line-height: 1.5rem;
-$nav-vertical-padding: 0.1875rem;
-$nav-height: $nav-line-height + $nav-vertical-padding * 2;
+$_nav-line-height: 1.5rem;
+$_nav-vertical-padding: 0.1875rem;
+$_nav-height: $_nav-line-height + $_nav-vertical-padding * 2;
 
 nav {
   position: fixed;
@@ -64,27 +64,35 @@ nav {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  opacity: 0.66;
+  transition: opacity 333ms ease-out;
   transform: translateX(-50%);
+  will-change: opacity;
+
+  &:hover {
+    opacity: 1;
+    transition-duration: 0s;
+  }
 
   a {
     position: relative;
     display: block;
-    padding: $nav-vertical-padding 0.625rem;
-    background: rgba(#000, 0.5);
+    padding: $_nav-vertical-padding 0.625rem;
+    background: rgba(#000, 0.33);
     color: #ccc;
     font-weight: 400;
     font-size: 1.125rem;
-    line-height: $nav-line-height;
+    line-height: $_nav-line-height;
     letter-spacing: 0.0625rem;
     text-decoration: none;
 
     &:hover {
-      background: rgba(#000, .25);
+      background: rgba(#000, .66);
       color: #fff;
     }
 
     &.active {
-      background: none;
+      background: none !important;
       color: #fff;
     }
   }
@@ -95,7 +103,7 @@ nav {
     top: 0;
     width: 50vw;
     height: 100%;
-    background: rgba(#000, 0.5);
+    background: rgba(#000, 0.33);
   }
 
   &:before {
@@ -107,34 +115,51 @@ nav {
   }
 }
 
+%full-size {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 main {
   position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
-  padding: ($nav-height + 3rem) 0 3rem;
+  min-height: 100dvh;
+  padding: ($_nav-height + 2rem) 0 3.5rem;
 
   &:before {
+    @extend %full-size;
+
     content: '';
     position: absolute;
-    inset: 0;
-    display: block;
     background:
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 1 1' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='99' numOctaves='4' result='t'/%3E%3CfeFlood flood-color='%23000' result='f'/%3E%3CfeComposite in='t' in2='f' operator='xor'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1' height='1' filter='url(%23f)' opacity='0.3'/%3E%3C/svg%3E") 50% 50% / 128px 128px,
-      radial-gradient(rgba(#000, 0), rgba(#000, .7)) 50% 100% / 150% 150%;
-    mix-blend-mode: multiply;
+      radial-gradient(
+        circle at 50% 35%,
+        rgba(#000, 0),
+        rgba(#000, .5),
+      ) 50% 50% / 100% 100%;
   }
 }
+
+$element-size: 6rem;
 
 .element {
   position: relative;
   display: inline-block;
   vertical-align: top;
-  width: 6rem;
-  height: 6rem;
+  width: $element-size;
+  height: $element-size;
 }
 
 h1 {
   position: relative;
-  margin: 1.5rem 0 0;
+  margin: 2rem 0 0;
   color: #eee;
   font-weight: 200;
   font-size: 5rem;
@@ -142,52 +167,31 @@ h1 {
   text-transform: uppercase;
 }
 
-p {
-  position: relative;
-  margin: 0;
-  color: #eee;
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 1.875rem;
-  letter-spacing: 0.0625rem;
-}
-
 .button {
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-  margin: 1rem 0 0;
-  padding: 1px 0.75rem;
-  border-radius: 0.25rem;
-  background: #777;
-  color: #eee;
-  font-weight: 400;
-  font-size: 1rem;
-  font-family: inherit;
-  line-height: 1.75rem;
-  letter-spacing: 0.0625rem;
-  text-decoration: none;
-  text-transform: uppercase;
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  margin-left: -1rem;
+  padding: 1px;
+  border-radius: 50%;
+  color: rgba(#fff, 0.5);
   cursor: pointer;
 
-  &:hover {
-    background: #888;
+  &:hover, &:active {
     color: #fff;
   }
 
   &:active {
     padding-top: 2px;
     padding-bottom: 0;
-    background: #666;
-    color: #ddd;
   }
 
   svg {
-    display: inline-block;
-    vertical-align: top;
-    width: 1rem;
-    height: 1rem;
-    margin: 0.375rem 0.375rem 0.375rem -0.125rem;
+    display: block;
+    border-radius: 50%;
     fill: currentColor;
   }
 }

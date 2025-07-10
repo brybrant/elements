@@ -3,6 +3,7 @@ import eslintPlugin from 'vite-plugin-eslint2';
 import reactPlugin from '@vitejs/plugin-react';
 import stylelintPlugin from 'vite-plugin-stylelint';
 import svgoPlugin from 'vite-plugin-svgo';
+import { NodePackageImporter } from 'sass-embedded';
 
 import * as configs from '@brybrant/configs';
 
@@ -24,7 +25,7 @@ export default defineConfig(({ mode }) => {
       postcss: configs.postCSSConfig,
       preprocessorOptions: {
         scss: {
-          api: 'modern-compiler',
+          importers: [new NodePackageImporter()],
         },
       },
     },

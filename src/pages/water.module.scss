@@ -1,6 +1,8 @@
 @use 'sass:color';
 @use 'sass:math';
-@use '../../node_modules/@brybrant/sass-okhsv-okhsl' as convert;
+@use 'pkg:@brybrant/sass-okhsv-okhsl' as convert;
+
+@use '../app' as *;
 
 // particle keyframes
 @keyframes water-particle {
@@ -34,13 +36,15 @@
 
 // particle
 .particle_container {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
 
   &:after {
+    @extend %full-size;
+
     content: '';
     position: absolute;
-    inset: 0;
     display: block;
     background: radial-gradient(
       closest-side,
@@ -60,11 +64,13 @@
   }
 }
 
+$_particle-size: 0.5rem;
+
 .particle {
   position: absolute;
   top: 0;
-  left: calc(50% - 0.25rem);
-  width: 0.5rem;
+  left: math.div($element-size - $_particle-size, 2);
+  width: $_particle-size;
   height: 100%;
 
   &:before, &:after {
@@ -73,8 +79,8 @@
     top: -40%;
     left: 0;
     display: block;
-    width: 0.5rem;
-    height: 0.5rem;
+    width: $_particle-size;
+    height: $_particle-size;
     border-radius: 50%;
     background: #4af;
     opacity: 0;
@@ -85,10 +91,12 @@
 
 // fragment
 .fragment_container {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
   filter: blur(4px);
   animation: 1s linear 0s infinite water-fragment;
+  mix-blend-mode: screen;
   mix-blend-mode: plus-lighter;
   will-change: transform;
 }
@@ -121,13 +129,15 @@
 }
 
 .core {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
 
   &:before, &:after {
+    @extend %full-size;
+
     content: '';
     position: absolute;
-    inset: 0;
     border-radius: 50%;
     opacity: 0;
     animation: 2s ease-in 0s infinite water-core;
@@ -142,18 +152,6 @@
   &:after {
     border-bottom: 0.125rem solid #6cf;
     border-left: 0.125rem solid #6cf;
-  }
-}
-
-.button {
-  background: convert.color_to_hex(convert.okhsl_to_rgba(250deg, 0.8, 0.4));
-
-  &:hover {
-    background: convert.color_to_hex(convert.okhsl_to_rgba(250deg, 0.8, 0.45));
-  }
-
-  &:active {
-    background: convert.color_to_hex(convert.okhsl_to_rgba(250deg, 0.8, 0.35));
   }
 }
 

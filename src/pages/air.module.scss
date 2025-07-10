@@ -1,6 +1,8 @@
 @use 'sass:color';
 @use 'sass:math';
-@use '../../node_modules/@brybrant/sass-okhsv-okhsl' as convert;
+@use 'pkg:@brybrant/sass-okhsv-okhsl' as convert;
+
+@use '../app' as *;
 
 // particle keyframes
 @keyframes air-particle {
@@ -45,8 +47,9 @@
 
 // particle
 .particle_container {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -89,17 +92,19 @@
 
 // fragment
 .fragment_container {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   transform: scale(1.6);
 
   &:after {
+    @extend %full-size;
+
     content: '';
     position: absolute;
-    inset: 0;
     display: block;
     background: radial-gradient(
       closest-side,
@@ -161,17 +166,20 @@
   height: 100%;
   filter: blur(2px);
   transform: scale(math.sqrt(2));
+  mix-blend-mode: screen;
   mix-blend-mode: plus-lighter;
 }
 
 .core {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
 
   &:before, &:after {
+    @extend %full-size;
+
     content: '';
     position: absolute;
-    inset: 0;
     border-top: 1px solid rgba(#fff, .5);
     border-right: 1px solid rgba(#fff, .5);
     border-radius: 50%;
@@ -185,18 +193,6 @@
     transform: rotate(180deg) scale(0.8);
     animation-name: air-core-after, air-core-pulse;
     animation-direction: reverse;
-  }
-}
-
-.button {
-  background: convert.color_to_hex(convert.okhsl_to_rgba(220deg, 0.2, 0.4));
-
-  &:hover {
-    background: convert.color_to_hex(convert.okhsl_to_rgba(220deg, 0.2, 0.45));
-  }
-
-  &:active {
-    background: convert.color_to_hex(convert.okhsl_to_rgba(220deg, 0.2, 0.35));
   }
 }
 

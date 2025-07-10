@@ -1,6 +1,8 @@
 @use 'sass:color';
 @use 'sass:math';
-@use '../../node_modules/@brybrant/sass-okhsv-okhsl' as convert;
+@use 'pkg:@brybrant/sass-okhsv-okhsl' as convert;
+
+@use '../app' as *;
 
 // particle keyframes
 @keyframes earth-particle {
@@ -35,8 +37,9 @@
 
 // particle
 .particle_container {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
 
   &:before {
     content: '';
@@ -61,13 +64,14 @@
   }
 }
 
-$particle-color: convert.color_to_hex(convert.okhsv_to_rgba(100deg, 0.9, 0.8));
+$_particle-size: 0.375rem;
+$_particle-color: convert.color_to_hex(convert.okhsv_to_rgba(100deg, 0.9, 0.8));
 
 .particle {
   position: absolute;
   top: 0;
-  left: calc(50% - 0.1875rem);
-  width: 0.375rem;
+  left: math.div($element-size - $_particle-size, 2);
+  width: $_particle-size;
   height: 100%;
 
   &:before, &:after {
@@ -84,36 +88,39 @@ $particle-color: convert.color_to_hex(convert.okhsv_to_rgba(100deg, 0.9, 0.8));
 
   &:before {
     top: -2rem;
-    border-bottom: 0.3125rem solid $particle-color;
+    border-bottom: 0.3125rem solid $_particle-color;
     transform: translateY(5rem) scale(0);
   }
 
   &:after {
     bottom: -2rem;
-    border-top: 0.3125rem solid $particle-color;
+    border-top: 0.3125rem solid $_particle-color;
     transform: translateY(-5rem) scale(0);
   }
 }
 
 // fragment
 .fragment_container {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
 }
+
+$_fragment-size: 1.25rem;
 
 .fragment {
   position: absolute;
   top: 0;
-  left: calc(50% - 0.625rem);
-  width: 1.25rem;
+  left: math.div($element-size - $_fragment-size, 2);
+  width: $_fragment-size;
   height: 100%;
 
   &:before, &:after {
     content: '';
     position: absolute;
     display: block;
-    width: 1.25rem;
-    height: 1.25rem;
+    width: $_fragment-size;
+    height: $_fragment-size;
     border-radius: 50%;
     background: convert.color_to_hex(convert.okhsv_to_rgba(125deg, 0.75, 0.8));
     animation: 4s ease-out 0s infinite earth-fragment;
@@ -136,12 +143,14 @@ $particle-color: convert.color_to_hex(convert.okhsv_to_rgba(100deg, 0.9, 0.8));
   position: relative;
   width: 100%;
   height: 100%;
+  mix-blend-mode: screen;
   mix-blend-mode: plus-lighter;
 }
 
 .core {
+  @extend %full-size;
+
   position: absolute;
-  inset: 0;
 
   &:before {
     content: '';
@@ -154,18 +163,6 @@ $particle-color: convert.color_to_hex(convert.okhsv_to_rgba(100deg, 0.9, 0.8));
     animation: 2s ease-out 0s infinite earth-core;
     backface-visibility: hidden;
     will-change: opacity, transform;
-  }
-}
-
-.button {
-  background: convert.color_to_hex(convert.okhsl_to_rgba(115deg, 0.8, 0.4));
-
-  &:hover {
-    background: convert.color_to_hex(convert.okhsl_to_rgba(115deg, 0.8, 0.45));
-  }
-
-  &:active {
-    background: convert.color_to_hex(convert.okhsl_to_rgba(115deg, 0.8, 0.35));
   }
 }
 
