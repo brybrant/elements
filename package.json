@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@brybrant/configs": "github:brybrant/configs",
-    "@brybrant/sass-okhsv-okhsl": "^1.0.1",
+    "@brybrant/sass-okhsv-okhsl": "^1.1.0",
     "@brybrant/svg-icons": "github:brybrant/svg-icons",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
