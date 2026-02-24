@@ -2,6 +2,7 @@ import Elements from '../components/elements';
 import SourceButton from '../components/source-button';
 import styles from './water.module.scss';
 
+/** Water page */
 export default function Water() {
   return (
     <>

@@ -1,3 +1,13 @@
+/**
+ * Generates the DOM elements necessary for CSS animation
+ * @param {object} styles Transformed CSS class names (from CSS modules)
+ * @param {string} styles.core CSS class for "cores" (large elements)
+ * @param {string} styles.core_container CSS class for "core container"
+ * @param {string} styles.fragment CSS class for "fragments" (medium elements)
+ * @param {string} styles.fragment_container CSS class for "fragment container"
+ * @param {string} styles.particle CSS class for "particles" (small elements)
+ * @param {string} styles.particle_container CSS class for "particle container"
+ */
 export default function Elements(styles) {
   const particles = [];
   const fragments = [];

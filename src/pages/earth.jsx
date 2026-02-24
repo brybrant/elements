@@ -2,6 +2,7 @@ import Elements from '../components/elements';
 import SourceButton from '../components/source-button';
 import styles from './earth.module.scss';
 
+/** Earth page */
 export default function Earth() {
   return (
     <>

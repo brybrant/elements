@@ -2,6 +2,7 @@ import Elements from '../components/elements';
 import SourceButton from '../components/source-button';
 import styles from './air.module.scss';
 
+/** Air page */
 export default function Air() {
   return (
     <>

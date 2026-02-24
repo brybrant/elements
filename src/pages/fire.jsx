@@ -2,6 +2,7 @@ import Elements from '../components/elements';
 import SourceButton from '../components/source-button';
 import styles from './fire.module.scss';
 
+/** Fire page */
 export default function Fire() {
   return (
     <>
