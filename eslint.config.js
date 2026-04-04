@@ -1,9 +1,9 @@
 import react from 'eslint-plugin-react';
 import globals from 'globals';
 
-import { eslintConfig } from '@brybrant/configs';
+import eslintConfig from '@brybrant/eslint-config';
 
-export default eslintConfig(react.configs.flat.recommended, {
+export default eslintConfig({
   files: ['**/*.jsx'],
   languageOptions: {
     globals: {
@@ -18,9 +18,9 @@ export default eslintConfig(react.configs.flat.recommended, {
   plugins: {
     react,
   },
-  rules: {
+  rules: Object.assign({}, react.configs.recommended.rules, {
     'react/react-in-jsx-scope': 0,
-  },
+  }),
   settings: {
     react: {
       version: 'detect',

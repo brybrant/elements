@@ -105,9 +105,9 @@
   border-radius: 50%;
   background: #ff0;
   opacity: 0;
+  will-change: opacity, transform;
   transform: scale(0);
   animation: 10s linear 0s infinite fire-particle;
-  will-change: opacity, transform;
 }
 
 $_fragment-background-size: 4.5rem;
@@ -139,10 +139,10 @@ $_fragment-background-size: 4.5rem;
 
   position: absolute;
   opacity: 0;
-  animation: 1s linear 0s infinite fire-fragment-left;
   mix-blend-mode: screen;
   mix-blend-mode: plus-lighter;
   will-change: opacity, transform;
+  animation: 1s linear 0s infinite fire-fragment-left;
 
   &:nth-child(odd) {
     animation-name: fire-fragment-right;
@@ -184,9 +184,9 @@ $_core-size: 4.5rem;
     border-bottom: 0.125rem solid #ff0;
     border-radius: 50%;
     opacity: 0;
+    will-change: opacity, transform;
     transform: translateY(3.5rem) scale(1);
     animation: 1s ease-out 0s infinite fire-core;
-    will-change: opacity, transform;
   }
 }
 

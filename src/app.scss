@@ -66,8 +66,8 @@ nav {
   justify-content: center;
   opacity: 0.66;
   transition: opacity 333ms ease-out;
-  transform: translateX(-50%);
   will-change: opacity;
+  transform: translateX(-50%);
 
   &:hover {
     opacity: 1;
