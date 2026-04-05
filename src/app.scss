@@ -65,8 +65,8 @@ nav {
   flex-flow: row nowrap;
   justify-content: center;
   opacity: 0.66;
-  transition: opacity 333ms ease-out;
   will-change: opacity;
+  transition: opacity 333ms ease-out;
   transform: translateX(-50%);
 
   &:hover {
